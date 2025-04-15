@@ -13,7 +13,6 @@ app.secret_key = os.environ.get("FLASK_SECRET_KEY", "supersecret")
 SPLITWISE_CONSUMER_KEY = os.environ.get("SPLITWISE_CONSUMER_KEY")
 SPLITWISE_CONSUMER_SECRET = os.environ.get("SPLITWISE_CONSUMER_SECRET")
 SPLITWISE_API_KEY = os.environ.get("SPLITWISE_API_KEY")
-SPLITWISE_API_SECRET = os.environ.get("SPLITWISE_API_SECRET")
 
 @app.route("/", methods=["GET", "POST"])
 def index():
