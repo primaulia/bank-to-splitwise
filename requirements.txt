@@ -1,0 +1,4 @@
+flask
+pandas
+splitwise
+python-dotenv
