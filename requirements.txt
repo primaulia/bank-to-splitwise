@@ -2,3 +2,4 @@ flask
 pandas
 splitwise
 python-dotenv
+gunicorn
