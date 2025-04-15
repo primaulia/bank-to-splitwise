@@ -39,5 +39,31 @@ def splitwise_callback():
     # Respond with 200 OK so Splitwise knows you received it
     return "Webhook received", 200
 
+@app.route("/test-splitwise-expense")
+def test_splitwise_expense():
+    # Initialize Splitwise client (OAuth1, using consumer key/secret and API key)
+    s = Splitwise(
+        SPLITWISE_CONSUMER_KEY,
+        SPLITWISE_CONSUMER_SECRET,
+        api_key=SPLITWISE_API_KEY
+    )
+    # Get your user ID
+    current_user = s.getCurrentUser()
+    user_id = current_user.getId()
+    # Create a simple expense: you paid $1.00 for yourself
+    from splitwise.expense import Expense, ExpenseUser
+    expense = Expense()
+    expense.setCost("1.00")
+    expense.setDescription("Test Expense from Flask")
+    user = ExpenseUser()
+    user.setId(user_id)
+    user.setPaidShare("1.00")
+    user.setOwedShare("1.00")
+    expense.addUser(user)
+    created_expense, errors = s.createExpense(expense)
+    if errors:
+        return f"Error: {errors}", 400
+    return f"Expense created! ID: {created_expense.getId()}"
+
 if __name__ == "__main__":
     app.run(debug=True)
