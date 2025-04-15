@@ -32,5 +32,13 @@ def index():
             return render_template("index.html", transactions=df.to_dict(orient="records"))
     return render_template("index.html")
 
+@app.route("/splitwise/callback", methods=["POST"])
+def splitwise_callback():
+    # You can log or process the incoming webhook data here
+    data = request.json or request.form
+    print("Received Splitwise webhook:", data)
+    # Respond with 200 OK so Splitwise knows you received it
+    return "Webhook received", 200
+
 if __name__ == "__main__":
     app.run(debug=True)
